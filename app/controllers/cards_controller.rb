@@ -6,6 +6,11 @@ class CardsController < ApplicationController
   end
 
   def create
-    @card = Card.create({name: "Sammi", company: "Apple", title: "Accountant", email: "sammi@email.com", message: "I do not want to go work"})
+    @card = Card.create(card_params)
+  end
+
+  private
+  def card_params
+    params.require(:card).permit(:name, :company, :title, :email, :message, :theme_id, :picture)
   end
 end
