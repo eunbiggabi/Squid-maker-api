@@ -7,16 +7,25 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 
 
-themes = Theme.create([
-  {name: "light"}, {name: "dark"}, {name: "colorful"}
-])
+# themes = Theme.create([
+#   {name: "light"}, {name: "dark"}, {name: "colorful"}
+# ])
+
+themes = ["light", "dark", "colorful"]
+
+if Theme.count == 0
+    themes.each do |theme|
+        Theme.create(name: theme)
+        puts "Created #{theme} category"
+    end
+end
 
 cards = Card.create([
   {
     id: 1,
     name: "Kyu",
     company: "Google",
-    theme: themes.first,
+    # theme: themes.first,
     title: "Software developer",
     email: "kyu@email.com",
     message: "go for it"
@@ -27,7 +36,7 @@ cards = Card.create([
     id: 2,
     name: "Chloe",
     company: "Samsung",
-    theme: themes.second,
+    # theme: themes.second,
     title: "Admin",
     email: "chloe@email.com",
     message: "let's go"
@@ -38,7 +47,7 @@ cards = Card.create([
     id: 3,
     name: "Mike",
     company: "Coles",
-    theme: themes.last,
+    # theme: themes.last,
     title: "Sales",
     email: "mike@email.com",
     message: "oh no~!"
