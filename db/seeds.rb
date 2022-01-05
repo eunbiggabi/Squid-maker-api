@@ -7,6 +7,11 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 
 
+if User.count == 0
+  User.create(username:"kyu1", email:"kyu1@email.com", password:"kyu1", password_confirmation:"kyu1")
+  User.create(username:"kyu2", email:"kyu2@email.com", password:"kyu2", password_confirmation:"kyu2")
+end
+
 # themes = Theme.create([
 #   {name: "light"}, {name: "dark"}, {name: "colorful"}
 # ])
@@ -21,27 +26,33 @@ if Theme.count == 0
 end
 
 if Card.count == 0
-  Card.create({id: 1,
+  Card.create({
     name: "Kyu",
     company: "Google",
-    # theme: themes.first,
+    theme_id: 1,
     title: "Software developer",
     email: "kyu@email.com",
-    message: "go for it"})
-    Card.create({id: 2,
+    message: "go for it", 
+    user_id: 1
+    })
+    Card.create({
       name: "Chloe",
       company: "Samsung",
-      # theme: themes.second,
+      theme_id: 2,
       title: "Admin",
       email: "chloe@email.com",
-      message: "let's go"})
-      Card.create({id: 3,
+      message: "let's go",
+      user_id: 2
+      })
+      Card.create({
         name: "Mike",
         company: "Coles",
-        # theme: themes.last,
+        theme_id: 3,
         title: "Sales",
         email: "mike@email.com",
-        message: "oh no~!"})
+        message: "oh no~!",
+        user_id: 2
+        })
 end
 
 # cards = Card.create([

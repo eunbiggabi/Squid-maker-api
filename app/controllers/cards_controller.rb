@@ -1,5 +1,7 @@
 class CardsController < ApplicationController
   before_action:find_card ,only: [:show, :update, :destroy]
+  before_action:authenticate_user, except: [:index, :show]
+  before_action:check_ownership, only: [:destroy, :update]
 
   def index
     # @cards = Card.all
@@ -12,11 +14,18 @@ class CardsController < ApplicationController
   # end
 
   def create
-    @card = Card.create(card_params)
+    # @card = Card.create(card_params)
+    @card=current_user.cards.create(card_params)
     if @card.errors.any?
       render.json:@card.errors, status: :unprocessable_entity
     else
       render json:@card, status: 200
+    end
+  end
+
+  def check_ownership
+    if current_user.id != @card.user.id
+      render json:{error: "not authorized to delete the card"}
     end
   end
 
