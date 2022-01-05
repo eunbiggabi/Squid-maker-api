@@ -22,7 +22,7 @@ Bundler.require(*Rails.groups)
 module SquidNoteApi
   class Application < Rails::Application
     # Initialize configuration defaults for originally generated Rails version.
-    config.load_defaults 6.1 and config.auto_load =:classic
+    config.load_defaults 6.1 and config.autoloader =:classic
 
     # Configuration for the application, engines, and railties goes here.
     #
