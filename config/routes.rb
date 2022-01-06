@@ -3,6 +3,7 @@ Rails.application.routes.draw do
   scope 'api'do
     get '/cards', to: 'cards#index'
     post '/cards', to: 'cards#create'
+    get '/cards/user', to: 'cards#my_messages'
     get '/cards/:id', to: 'cards#show'
     put '/cards/:id', to: 'cards#update'
     delete '/cards/:id', to: 'cards#destroy'

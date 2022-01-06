@@ -4,23 +4,33 @@ class CardsController < ApplicationController
   before_action:check_ownership, only: [:destroy, :update]
 
   def index
-    # @cards = Card.all
-    @cards = Card.order('updated_at DESC')
+    @cards = []
+    if(params[:username])
+      Card.find_by_user(params[:username]).each do |card|
+        @cards << Card.find_by(id:card.id).transform_message
+      end
+    else
+      Card.order('updated_at DESC').each do |card|
+        @cards << Card.find_by(id:card.id).transform_message
+      end
+    end
     render json: @cards
   end
 
-  # def new
-  #   @card = Card.new
-  # end
-
   def create
-    # @card = Card.create(card_params)
     @card=current_user.cards.create(card_params)
     if @card.errors.any?
       render.json:@card.errors, status: :unprocessable_entity
     else
       render json:@card, status: 200
     end
+  end
+
+  def my_messages
+    @card = Card.find_by_user(current_user.username).order('updated_at DESC').each do |card|
+      @cards << Card.find_by(id:card.id).transform_message
+    end
+    render json:@cards
   end
 
   def check_ownership
@@ -39,7 +49,7 @@ class CardsController < ApplicationController
   end
 
   def show
-    render json:@card
+    render json:@card.transform_message
   end
 
   def destroy
